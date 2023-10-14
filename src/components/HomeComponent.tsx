@@ -4,8 +4,9 @@ import { useCars } from "../hooks/useCars";
 import { CarCard } from "./CarCard";
 
 import styles from '../../public/css/home.module.css';
-import PaginationDesktopProps from "./PaginationDesktop";
+import PaginationDesktop from "./PaginationDesktop";
 import { Spacer } from "./Spacer";
+import PaginationMobile from "./paginationMobile";
 
 export const HomeComponent: React.FC = () => {
   const { cars } = useCars();
@@ -21,6 +22,7 @@ export const HomeComponent: React.FC = () => {
     if(left) cardList?.scrollTo({ left: scrollPosition - cardSize })
     else cardList?.scrollTo({ left: scrollPosition + cardSize })
   }
+
   const onClickMobile = (index: number) => {
     let cardList = document.getElementById("card-list");
     let card = cardList?.firstElementChild;
@@ -39,8 +41,8 @@ export const HomeComponent: React.FC = () => {
       <div className={styles.cardsWrapper} id="card-list">
         {cars.map(car => <CarCard key={car.id} car={car}/>)}
       </div>
-      <PaginationDesktopProps onClickLeft={() => onClickNavigate(true)} onClickRight={() => onClickNavigate(false)}/>
-      {/* <PaginationMobile selected={selected} onClick={onClickMobile} total={cars.length}></PaginationMobile> */}
+      <PaginationDesktop onClickLeft={() => onClickNavigate(true)} onClickRight={() => onClickNavigate(false)}/>
+      <PaginationMobile selected={selected} onClick={onClickMobile} total={cars.length}></PaginationMobile>
     </div>
   );
 };
